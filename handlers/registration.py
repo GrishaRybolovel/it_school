@@ -4,7 +4,7 @@ from aiogram.fsm.state import StatesGroup, State
 from aiogram.filters import Command
 
 from keyboards.keyboards import keyboard
-from database.db import insert_user
+from database.db import Database
 
 class Registration(StatesGroup):
     name = State()

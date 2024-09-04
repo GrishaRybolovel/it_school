@@ -26,15 +26,18 @@ async def process_phone_number(message: types.Message, state: FSMContext):
     user_data = await state.get_data()
     name = user_data['name']
     phone_number = user_data['phone_number']
-
+    db = Database()
+    await db.connect()
     try:
-        user_id = insert_user(user_data)
+        user_id = await db.insert_user(name, phone_number)
         await message.answer(
-            f"Записал вас к себе в базу!")
+            f"Записал вас к себе в базу! Ваш ID: '{user_id}'")
     except Exception as e:
         await message.answer(f"An error occurred: {e}")
 
-    await message.answer(f"Спасибо за регистрацию:\nИмя: {name}\nНомер телефона: {phone_number}")
+    await db.disconnect()
+
+    await message.answer(f"Спасибо за регистрацию, {name}")
 
     await state.clear()
 

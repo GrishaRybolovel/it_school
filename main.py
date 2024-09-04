@@ -1,6 +1,5 @@
 import asyncio
 from handlers.registration import register_handlers
-from database.db import connect_sql
 
 import asyncio
 from aiogram import Bot, Dispatcher
@@ -14,7 +13,6 @@ dp = Dispatcher(storage=storage)
 
 async def on_startup(dp: Dispatcher):
     print('Бот вышел в онлайн!')
-    connect_sql()
 
 
 async def main():
